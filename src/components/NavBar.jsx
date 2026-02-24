@@ -6,8 +6,8 @@ const NavBar = () => {
   const { language, toggleLanguage, t } = useContext(LanguageContext);
 
   return (
-    // Usamos bg-deep-blue para el fondo oscuro
-    <nav className="navbar navbar-expand-lg navbar-dark bg-deep-blue sticky-top shadow-sm py-3">
+    // Reemplazamos bg-deep-blue por bg-olive
+    <nav className="navbar navbar-expand-lg navbar-dark bg-olive sticky-top shadow-sm py-3">
       <div className="container">
         <NavLink className="navbar-brand fs-3" to="/">hymnia.tech</NavLink>
         
