@@ -1,0 +1,107 @@
+/* Importamos una fuente Serif elegante para títulos y una Sans para el cuerpo */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+:root {
+  /* Lucia Collection Palette */
+  --color-deep-blue: #133951;  /* Nav, Footer, Hero Text bg */
+  --color-muted-blue: #6A95B1; /* Accents, secondary cards */
+  --color-cream: #EDE2CD;      /* Main background */
+  --color-mustard: #F3C12C;    /* Primary buttons, highlights */
+  --color-olive: #7A7229;      /* Accents, tertiary cards */
+  --color-text-dark: #133951;  /* Main text color */
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-text-dark);
+  font-family: 'Inter', sans-serif; /* Fuente base para lectura */
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand, .serif-font {
+  font-family: 'Cinzel', serif; /* Fuente elegante para títulos */
+  font-weight: 700;
+}
+
+/* --- Clases de Utilidad de Color --- */
+.bg-deep-blue { background-color: var(--color-deep-blue) !important; color: var(--color-cream); }
+.bg-muted-blue { background-color: var(--color-muted-blue) !important; color: white; }
+.bg-cream { background-color: var(--color-cream) !important; }
+.bg-mustard { background-color: var(--color-mustard) !important; color: var(--color-deep-blue); }
+.bg-olive { background-color: var(--color-olive) !important; color: white; }
+
+.text-deep-blue { color: var(--color-deep-blue) !important; }
+.text-mustard { color: var(--color-mustard) !important; }
+.text-olive { color: var(--color-olive) !important; }
+.text-cream { color: var(--color-cream) !important; }
+
+/* Botones personalizados */
+.btn-mustard {
+  background-color: var(--color-mustard);
+  color: var(--color-deep-blue);
+  font-weight: 600;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px; /* Bordes redondeados como en el diseño */
+}
+.btn-mustard:hover {
+  background-color: #d4a826;
+  color: var(--color-deep-blue);
+}
+
+.btn-outline-cream {
+  border: 2px solid var(--color-cream);
+  color: var(--color-cream);
+  border-radius: 30px;
+  font-weight: 600;
+}
+.btn-outline-cream:hover {
+  background-color: var(--color-cream);
+  color: var(--color-deep-blue);
+}
+
+/* Utilidades para Tarjetas e Iconos del nuevo diseño */
+.card-colored-header {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.card-colored-header .card-header {
+  border-bottom: none;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2.5rem; /* Tamaño para los iconos */
+}
+.card-colored-header .card-body {
+  background-color: white;
+  border-radius: 0 0 15px 15px;
+}
+
+.icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 1rem;
+}
+
+.timeline-step {
+    position: relative;
+}
+.timeline-step::after {
+    content: '→';
+    position: absolute;
+    top: 30%;
+    right: -20px;
+    font-size: 2rem;
+    color: var(--color-muted-blue);
+    display: none; /* Ocultar en móvil */
+}
+@media (min-width: 992px) {
+    .timeline-step:not(:last-child)::after {
+        display: block;
+    }
+}
