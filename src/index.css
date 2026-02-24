@@ -1,65 +1,77 @@
-/* Importamos una fuente Serif elegante para títulos y una Sans para el cuerpo */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap');
 
 :root {
-  /* Lucia Collection Palette */
-  --color-deep-blue: #133951;  /* Nav, Footer, Hero Text bg */
-  --color-muted-blue: #6A95B1; /* Accents, secondary cards */
-  --color-cream: #EDE2CD;      /* Main background */
-  --color-mustard: #F3C12C;    /* Primary buttons, highlights */
-  --color-olive: #7A7229;      /* Accents, tertiary cards */
-  --color-text-dark: #133951;  /* Main text color */
+  /* Nueva Paleta Elegante y Sobria */
+  --color-navy: #2F4156;   /* Principal oscuro, texto y fondos fuertes */
+  --color-teal: #567C8D;   /* Acentos primarios, botones */
+  --color-sky: #C8D9E6;    /* Fondos secundarios, tarjetas claras */
+  --color-beige: #F5EFEB;  /* Fondo principal de la web */
+  --color-white: #FFFFFF;
+  --color-text-dark: #2F4156; 
 }
 
 body {
-  background-color: var(--color-cream);
+  background-color: var(--color-beige);
   color: var(--color-text-dark);
-  font-family: 'Inter', sans-serif; /* Fuente base para lectura */
+  font-family: 'Inter', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6, .navbar-brand, .serif-font {
-  font-family: 'Cinzel', serif; /* Fuente elegante para títulos */
+  font-family: 'Cinzel', serif;
   font-weight: 700;
 }
 
-/* --- Clases de Utilidad de Color --- */
-.bg-deep-blue { background-color: var(--color-deep-blue) !important; color: var(--color-cream); }
-.bg-muted-blue { background-color: var(--color-muted-blue) !important; color: white; }
-.bg-cream { background-color: var(--color-cream) !important; }
-.bg-mustard { background-color: var(--color-mustard) !important; color: var(--color-deep-blue); }
-.bg-olive { background-color: var(--color-olive) !important; color: white; }
+/* --- Nuevas Clases de Utilidad de Color --- */
+.bg-navy { background-color: var(--color-navy) !important; color: var(--color-beige); }
+.bg-teal { background-color: var(--color-teal) !important; color: var(--color-white); }
+.bg-sky { background-color: var(--color-sky) !important; color: var(--color-navy); }
+.bg-beige { background-color: var(--color-beige) !important; color: var(--color-navy); }
+.bg-white { background-color: var(--color-white) !important; color: var(--color-navy); }
 
-.text-deep-blue { color: var(--color-deep-blue) !important; }
-.text-mustard { color: var(--color-mustard) !important; }
-.text-olive { color: var(--color-olive) !important; }
-.text-cream { color: var(--color-cream) !important; }
+.text-navy { color: var(--color-navy) !important; }
+.text-teal { color: var(--color-teal) !important; }
+.text-sky { color: var(--color-sky) !important; }
+.text-beige { color: var(--color-beige) !important; }
 
-/* Botones personalizados */
-.btn-mustard {
-  background-color: var(--color-mustard);
-  color: var(--color-deep-blue);
+/* Botones actualizados a la nueva paleta */
+.btn-teal {
+  background-color: var(--color-teal);
+  color: var(--color-white);
   font-weight: 600;
   border: none;
   padding: 10px 25px;
-  border-radius: 30px; /* Bordes redondeados como en el diseño */
+  border-radius: 30px;
 }
-.btn-mustard:hover {
-  background-color: #d4a826;
-  color: var(--color-deep-blue);
+.btn-teal:hover {
+  background-color: #456573; /* Un teal un poco más oscuro */
+  color: var(--color-white);
 }
 
-.btn-outline-cream {
-  border: 2px solid var(--color-cream);
-  color: var(--color-cream);
+.btn-navy {
+  background-color: var(--color-navy);
+  color: var(--color-beige);
+  font-weight: 600;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px;
+}
+.btn-navy:hover {
+  background-color: #1e2a38;
+  color: var(--color-white);
+}
+
+.btn-outline-beige {
+  border: 2px solid var(--color-beige);
+  color: var(--color-beige);
   border-radius: 30px;
   font-weight: 600;
 }
-.btn-outline-cream:hover {
-  background-color: var(--color-cream);
-  color: var(--color-deep-blue);
+.btn-outline-beige:hover {
+  background-color: var(--color-beige);
+  color: var(--color-navy);
 }
 
-/* Utilidades para Tarjetas e Iconos del nuevo diseño */
+/* Utilidades para Tarjetas e Iconos */
 .card-colored-header {
   border: none;
   border-radius: 15px;
@@ -70,10 +82,10 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .serif-font {
   padding-top: 2rem;
   padding-bottom: 1.5rem;
   text-align: center;
-  font-size: 2.5rem; /* Tamaño para los iconos */
+  font-size: 2.5rem;
 }
 .card-colored-header .card-body {
-  background-color: white;
+  background-color: var(--color-white);
   border-radius: 0 0 15px 15px;
 }
 
@@ -88,20 +100,16 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .serif-font {
   margin: 0 auto 1rem;
 }
 
-.timeline-step {
-    position: relative;
-}
+.timeline-step { position: relative; }
 .timeline-step::after {
     content: '→';
     position: absolute;
     top: 30%;
     right: -20px;
     font-size: 2rem;
-    color: var(--color-muted-blue);
-    display: none; /* Ocultar en móvil */
+    color: var(--color-sky);
+    display: none;
 }
 @media (min-width: 992px) {
-    .timeline-step:not(:last-child)::after {
-        display: block;
-    }
+    .timeline-step:not(:last-child)::after { display: block; }
 }
