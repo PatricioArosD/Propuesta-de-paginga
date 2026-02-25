@@ -1,18 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap');
 
 :root {
-  /* Nueva Paleta Elegante y Sobria */
-  --color-navy: #2F4156;   /* Principal oscuro, texto y fondos fuertes */
-  --color-teal: #567C8D;   /* Acentos primarios, botones */
-  --color-sky: #C8D9E6;    /* Fondos secundarios, tarjetas claras */
-  --color-beige: #F5EFEB;  /* Fondo principal de la web */
+  /* Nueva Paleta: Classic Premium */
+  --color-midnight: #0A4152;
+  --color-plum: #701B15;
+  --color-orange: #E17426;
+  --color-aspiring: #A4C0C1;
+  --color-caramel: #EDBA97;
+  
   --color-white: #FFFFFF;
-  --color-text-dark: #2F4156; 
+  --color-off-white: #F9F7F5; /* Fondo general muy suave para no cansar la vista */
 }
 
 body {
-  background-color: var(--color-beige);
-  color: var(--color-text-dark);
+  background-color: var(--color-off-white);
+  color: var(--color-midnight);
   font-family: 'Inter', sans-serif;
 }
 
@@ -21,54 +23,48 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .serif-font {
   font-weight: 700;
 }
 
-/* --- Nuevas Clases de Utilidad de Color --- */
-.bg-navy { background-color: var(--color-navy) !important; color: var(--color-beige); }
-.bg-teal { background-color: var(--color-teal) !important; color: var(--color-white); }
-.bg-sky { background-color: var(--color-sky) !important; color: var(--color-navy); }
-.bg-beige { background-color: var(--color-beige) !important; color: var(--color-navy); }
-.bg-white { background-color: var(--color-white) !important; color: var(--color-navy); }
+/* --- Clases de Utilidad de Color --- */
+.bg-midnight { background-color: var(--color-midnight) !important; color: var(--color-white); }
+.bg-plum { background-color: var(--color-plum) !important; color: var(--color-white); }
+.bg-orange { background-color: var(--color-orange) !important; color: var(--color-white); }
+.bg-aspiring { background-color: var(--color-aspiring) !important; color: var(--color-midnight); }
+.bg-caramel { background-color: var(--color-caramel) !important; color: var(--color-midnight); }
+.bg-white { background-color: var(--color-white) !important; color: var(--color-midnight); }
 
-.text-navy { color: var(--color-navy) !important; }
-.text-teal { color: var(--color-teal) !important; }
-.text-sky { color: var(--color-sky) !important; }
-.text-beige { color: var(--color-beige) !important; }
+.text-midnight { color: var(--color-midnight) !important; }
+.text-plum { color: var(--color-plum) !important; }
+.text-orange { color: var(--color-orange) !important; }
+.text-aspiring { color: var(--color-aspiring) !important; }
+.text-caramel { color: var(--color-caramel) !important; }
 
-/* Botones actualizados a la nueva paleta */
-.btn-teal {
-  background-color: var(--color-teal);
+/* Botones principales */
+.btn-orange {
+  background-color: var(--color-orange);
+  color: var(--color-white);
+  font-weight: 600;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+.btn-orange:hover {
+  background-color: #c4601d;
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+/* Botones secundarios */
+.btn-plum {
+  background-color: var(--color-plum);
   color: var(--color-white);
   font-weight: 600;
   border: none;
   padding: 10px 25px;
   border-radius: 30px;
 }
-.btn-teal:hover {
-  background-color: #456573; /* Un teal un poco más oscuro */
+.btn-plum:hover {
+  background-color: #52120e;
   color: var(--color-white);
-}
-
-.btn-navy {
-  background-color: var(--color-navy);
-  color: var(--color-beige);
-  font-weight: 600;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 30px;
-}
-.btn-navy:hover {
-  background-color: #1e2a38;
-  color: var(--color-white);
-}
-
-.btn-outline-beige {
-  border: 2px solid var(--color-beige);
-  color: var(--color-beige);
-  border-radius: 30px;
-  font-weight: 600;
-}
-.btn-outline-beige:hover {
-  background-color: var(--color-beige);
-  color: var(--color-navy);
 }
 
 /* Utilidades para Tarjetas e Iconos */
@@ -107,7 +103,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .serif-font {
     top: 30%;
     right: -20px;
     font-size: 2rem;
-    color: var(--color-sky);
+    color: var(--color-aspiring);
     display: none;
 }
 @media (min-width: 992px) {

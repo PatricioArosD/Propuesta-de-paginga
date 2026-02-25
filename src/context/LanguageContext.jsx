@@ -6,7 +6,8 @@ export const LanguageContext = createContext();
 
 // 2. Creamos el Provider que envolverá nuestra App
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState('ES');
+  // AQUÍ ESTÁ EL CAMBIO: Inicializamos en 'EN' en lugar de 'ES'
+  const [language, setLanguage] = useState('EN');
 
   const toggleLanguage = () => {
     setLanguage((prevLang) => (prevLang === 'ES' ? 'EN' : 'ES'));
