@@ -109,3 +109,9 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .serif-font {
 @media (min-width: 992px) {
     .timeline-step:not(:last-child)::after { display: block; }
 }
+
+/* Navbar logo sizing */
+.navbar-logo {
+  height: 40px;
+  /* adjust as needed */
+}
