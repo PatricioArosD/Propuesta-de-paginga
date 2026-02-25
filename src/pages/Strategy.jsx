@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
+import { Helmet } from 'react-helmet-async'; // <-- Importado Helmet
 
 const Strategy = () => {
-  const { t } = useContext(LanguageContext);
+  const { t, language } = useContext(LanguageContext); // <-- Agregado 'language' para lógica condicional
   const [expandedService, setExpandedService] = useState(null);
 
   const toggleDetails = (index) => {
@@ -14,6 +15,32 @@ const Strategy = () => {
 
   return (
     <div className="container py-5">
+      {/* --- INICIO BLOQUE SEO --- */}
+      <Helmet>
+        <title>
+          {language === 'EN' 
+            ? 'Strategy & AI Services | hymnia.tech' 
+            : 'Estrategia y Servicios IA | hymnia.tech'}
+        </title>
+        <meta 
+          name="description" 
+          content={
+            language === 'EN' 
+            ? "Pragmatic AI solutions, project rescue, and technical leadership. We ensure GenAI generates real business value through robust ML architectures." 
+            : "Soluciones de IA pragmáticas, rescate de proyectos y liderazgo técnico. Aseguramos que la GenIA genere valor real mediante arquitecturas ML robustas."
+          } 
+        />
+        <meta 
+          name="keywords" 
+          content={
+            language === 'EN'
+            ? "AI strategy, technical leadership, rescue AI projects, ML roadmap, GenAI governance, B2B AI consulting"
+            : "Estrategia IA, liderazgo técnico, rescate proyectos IA, roadmap Machine Learning, gobernanza GenAI, consultoría B2B"
+          }
+        />
+      </Helmet>
+      {/* --- FIN BLOQUE SEO --- */}
+
       <div className="text-center mb-5">
         <h1 className="text-midnight fw-bold display-5 serif-font">{t.strategy.title}</h1>
         <p className="lead text-midnight opacity-75 mx-auto col-lg-8">{t.strategy.subtitle}</p>

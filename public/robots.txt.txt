@@ -1,0 +1,6 @@
+# Archivo public/robots.txt
+
+User-agent: *
+Allow: /
+
+Sitemap: https://hymnia.tech/sitemap.xml

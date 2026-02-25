@@ -1,15 +1,43 @@
 import React, { useContext } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async'; // <-- 1. Importamos Helmet
 
 const Home = () => {
-  const { t } = useContext(LanguageContext);
+  // 2. Extraemos 'language' del contexto para hacer el SEO dinámico
+  const { t, language } = useContext(LanguageContext);
 
   const serviceIcons = ["⚙️", "🛠️", "🤖", "⚖️", "🛡️", "🔍"];
   const cardColors = ["bg-midnight", "bg-plum", "bg-orange", "bg-aspiring", "bg-caramel", "bg-midnight"];
 
   return (
     <div>
+      {/* --- INICIO BLOQUE SEO DINÁMICO --- */}
+      <Helmet>
+        <title>
+          {language === 'EN' 
+            ? 'hymnia.tech | Boutique AI & GenAI Consulting' 
+            : 'hymnia.tech | Consultora Boutique de IA y GenIA'}
+        </title>
+        <meta 
+          name="description" 
+          content={
+            language === 'EN' 
+            ? "Expert AI & GenAI consulting. We build scalable Machine Learning architectures, optimize RAG systems, and lead tech products from PoC to production." 
+            : "Consultoría experta en IA y GenAI. Construimos arquitecturas Machine Learning escalables, optimizamos sistemas RAG y llevamos productos a producción."
+          } 
+        />
+        <meta 
+          name="keywords" 
+          content={
+            language === 'EN'
+            ? "AI consulting, GenAI architecture, RAG optimization, Machine Learning, Latam AI consultant, LLM implementation"
+            : "Consultoría IA, arquitectura GenAI, optimización RAG, Machine Learning, consultora IA Latam, implementación LLM"
+          }
+        />
+      </Helmet>
+      {/* --- FIN BLOQUE SEO --- */}
+
       <div className="container-fluid p-0">
         <div className="row g-0 align-items-center" style={{ minHeight: '70vh' }}>
           

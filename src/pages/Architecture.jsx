@@ -1,13 +1,40 @@
 import React, { useContext } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
+import { Helmet } from 'react-helmet-async'; // <-- Importado Helmet
 
 const Architecture = () => {
-  const { t } = useContext(LanguageContext);
+  const { t, language } = useContext(LanguageContext); // <-- Agregado 'language'
   const stepIcons = ["🔍", "💡", "🚀", "🏭"];
   const stepColors = ["bg-midnight", "bg-aspiring", "bg-orange", "bg-plum"];
 
   return (
     <div className="container py-5 mb-5">
+      {/* --- INICIO BLOQUE SEO --- */}
+      <Helmet>
+        <title>
+          {language === 'EN' 
+            ? 'AI Architecture & Methodology | hymnia.tech' 
+            : 'Arquitectura y Metodología IA | hymnia.tech'}
+        </title>
+        <meta 
+          name="description" 
+          content={
+            language === 'EN' 
+            ? "Structured technical development flow for AI. From deep Discovery and PoC to scalable MVP and robust Production deployment." 
+            : "Flujo de desarrollo técnico estructurado para IA. Desde Discovery profundo y PoC hasta un MVP escalable y despliegue robusto en producción."
+          } 
+        />
+        <meta 
+          name="keywords" 
+          content={
+            language === 'EN'
+            ? "AI methodology, GenAI architecture, LLM deployment, PoC to Production, MVP artificial intelligence, tech stack AI"
+            : "Metodología IA, arquitectura GenAI, despliegue LLM, PoC a Producción, MVP inteligencia artificial, stack tecnológico IA"
+          }
+        />
+      </Helmet>
+      {/* --- FIN BLOQUE SEO --- */}
+
       <div className="text-center mb-5">
          <h6 className="text-orange text-uppercase ls-2 fw-bold">Our Methodology</h6>
         <h1 className="text-midnight fw-bold display-5 serif-font mb-3">{t.architecture.title}</h1>
