@@ -5,22 +5,20 @@ import { Helmet } from 'react-helmet-async';
 const Contact = () => {
   const { t, language } = useContext(LanguageContext);
   
-  // Estados para controlar el formulario y el contador de palabras
+  // Estados para controlar el formulario y el contador de caracteres
   const [showForm, setShowForm] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Lógica para limitar a 30 palabras
+  // Lógica para limitar a 150 caracteres
   const handleMessageChange = (e) => {
     const text = e.target.value;
-    // Cuenta las palabras separando por espacios. Si está vacío, es 0.
-    const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
-    
-    if (words <= 30) {
+    // Cuenta todos los caracteres del texto
+    if (text.length <= 150) {
       setMessage(text);
     }
   };
 
-  const wordCount = message.trim() === '' ? 0 : message.trim().split(/\s+/).length;
+  const charCount = message.length;
 
   const boxColors = ["bg-midnight", "bg-caramel", "bg-plum"];
   const textColors = ["text-white", "text-midnight", "text-white"];
@@ -133,8 +131,8 @@ const Contact = () => {
                     <div className="mb-4">
                       <label className="form-label text-caramel fw-semibold d-flex justify-content-between">
                         <span>{language === 'EN' ? 'Brief description of the request' : 'Breve descripción de la solicitud'}</span>
-                        <span className={`small ${wordCount >= 30 ? 'text-danger' : 'text-aspiring'}`}>
-                          {wordCount}/30 {language === 'EN' ? 'words' : 'palabras'}
+                        <span className={`small ${charCount >= 150 ? 'text-danger' : 'text-aspiring'}`}>
+                          {charCount}/150 {language === 'EN' ? 'characters' : 'caracteres'}
                         </span>
                       </label>
                       <textarea 
