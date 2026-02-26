@@ -1,24 +1,63 @@
 import React, { useState, useContext } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom'; // <-- 1. Importar useNavigate
 
 const Contact = () => {
   const { t, language } = useContext(LanguageContext);
+  const navigate = useNavigate(); // <-- 2. Inicializar navegación
   
-  // Estados para controlar el formulario y el contador de caracteres
+  // Estados para controlar el formulario y el contador
   const [showForm, setShowForm] = useState(false);
   const [message, setMessage] = useState('');
+  
+  // Nuevos estados para controlar el envío
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   // Lógica para limitar a 300 caracteres
   const handleMessageChange = (e) => {
     const text = e.target.value;
-    // Cuenta todos los caracteres
     if (text.length <= 300) {
       setMessage(text);
     }
   };
 
   const charCount = message.length;
+
+  // 3. Lógica para enviar en segundo plano (AJAX)
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Evita que la página cambie a la de FormSubmit
+    setIsSubmitting(true); // Cambia el botón a "Enviando..."
+
+    const formData = new FormData(e.target);
+
+    try {
+      // Nota: Agregamos /ajax/ a la URL para el envío en segundo plano
+      const response = await fetch("https://formsubmit.co/ajax/hymnia.tech@gmail.com", {
+        method: "POST",
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setIsSuccess(true); // Muestra la pantalla de éxito
+        
+        // Espera 3.5 segundos y redirige al Home
+        setTimeout(() => {
+          navigate('/');
+        }, 3500);
+      } else {
+        alert(language === 'EN' ? 'Error sending message. Try again.' : 'Error al enviar. Intenta de nuevo.');
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      alert(language === 'EN' ? 'Network error.' : 'Error de red.');
+      setIsSubmitting(false);
+    }
+  };
 
   const boxColors = ["bg-midnight", "bg-caramel", "bg-plum"];
   const textColors = ["text-white", "text-midnight", "text-white"];
@@ -40,10 +79,7 @@ const Contact = () => {
             : "Agenda una sesión de Discovery técnico de 30 minutos directamente con nuestro equipo de arquitectura GenIA."
           } 
         />
-        <meta 
-          name="keywords" 
-          content="contact AI consultant, schedule technical session, AI architecture assessment, GenAI consulting contact"
-        />
+        <meta name="keywords" content="contact AI consultant, schedule technical session, AI architecture assessment, GenAI consulting contact" />
       </Helmet>
       {/* --- FIN BLOQUE SEO --- */}
 
@@ -67,41 +103,33 @@ const Contact = () => {
       <div className="row justify-content-center">
         <div className="col-lg-8">
           <div className="card bg-midnight text-aspiring border-0 shadow-lg rounded-4 overflow-hidden" style={{ minHeight: '400px' }}>
-            <div className="card-body p-5">
+            <div className="card-body p-5 d-flex align-items-center justify-content-center">
               
-              {!showForm ? (
-                // VISTA 1: INFORMACIÓN DE CONTACTO (Original)
-                <div className="text-center">
-                  <h3 className="fw-bold serif-font mb-4 display-6 text-white">{t.contact.boxTitle}</h3>
-                  <p className="mb-5 lead opacity-75">{t.contact.boxDesc}</p>
-                  
-                  <div className="row mb-5 text-white">
-                     <div className="col-md-6 mb-3 mb-md-0">
-                        <div className="fs-1 text-orange mb-2">📍</div>
-                        <strong>{t.contact.locationLabel}</strong><br/>
-                        <span className="opacity-75 text-aspiring">{t.contact.locationValue}</span>
-                     </div>
-                     <div className="col-md-6">
-                        <div className="fs-1 text-orange mb-2">✉️</div>
-                        <strong>{t.contact.emailLabel}</strong><br/>
-                        <a href="mailto:hymnia.tech@gmail.com" className="text-caramel text-decoration-none fw-bold">hymnia.tech@gmail.com</a>
-                     </div>
-                  </div>
-                  
-                  <button onClick={() => setShowForm(true)} className="btn btn-orange btn-lg px-5">
-                    {t.contact.btnText}
-                  </button>
+              {/* RENDERIZADO CONDICIONAL: ÉXITO -> FORMULARIO -> INICIO */}
+              
+              {isSuccess ? (
+                // PANTALLA DE ÉXITO Y REDIRECCIÓN
+                <div className="text-center fade-in py-4">
+                  <div className="display-1 mb-3">✅</div>
+                  <h3 className="fw-bold serif-font text-white mb-3">
+                    {language === 'EN' ? 'Request Sent Successfully!' : '¡Solicitud enviada con éxito!'}
+                  </h3>
+                  <p className="lead text-aspiring mb-0">
+                    {language === 'EN' 
+                      ? 'Our architecture team will contact you shortly. Redirecting to home...' 
+                      : 'Nuestro equipo te contactará pronto. Redirigiendo al inicio...'}
+                  </p>
                 </div>
-              ) : (
+              ) : showForm ? (
+                
                 // VISTA 2: FORMULARIO DE CONTACTO
-                <div className="text-start fade-in">
+                <div className="text-start fade-in w-100">
                   <h3 className="fw-bold serif-font mb-4 text-white text-center">
                     {language === 'EN' ? 'Tell us about your challenge' : 'Cuéntanos tu desafío'}
                   </h3>
                   
-                  {/* El action apunta a FormSubmit con tu correo */}
-                  <form action="https://formsubmit.co/hymnia.tech@gmail.com" method="POST">
-                    {/* Configuraciones ocultas de FormSubmit */}
+                  {/* El action y method se cambian por onSubmit */}
+                  <form onSubmit={handleSubmit}>
                     <input type="hidden" name="_subject" value="¡Nuevo lead técnico en hymnia.tech!" />
                     <input type="hidden" name="_captcha" value="false" />
                     
@@ -147,14 +175,41 @@ const Contact = () => {
                     </div>
 
                     <div className="d-flex gap-3">
-                      <button type="submit" className="btn btn-outline-light flex-grow-1">
-                        {language === 'EN' ? 'Send Request' : 'Enviar Solicitud'}
+                      {/* El botón se deshabilita y cambia de texto mientras envía */}
+                      <button type="submit" className="btn btn-outline-light flex-grow-1" disabled={isSubmitting}>
+                        {isSubmitting 
+                          ? (language === 'EN' ? 'Sending...' : 'Enviando...') 
+                          : (language === 'EN' ? 'Send Request' : 'Enviar Solicitud')}
                       </button>
-                      <button type="button" onClick={() => setShowForm(false)} className="btn btn-outline-light">
+                      <button type="button" onClick={() => setShowForm(false)} className="btn btn-outline-light" disabled={isSubmitting}>
                         {language === 'EN' ? 'Cancel' : 'Cancelar'}
                       </button>
                     </div>
                   </form>
+                </div>
+              ) : (
+                
+                // VISTA 1: INFORMACIÓN DE CONTACTO (Original)
+                <div className="text-center w-100">
+                  <h3 className="fw-bold serif-font mb-4 display-6 text-white">{t.contact.boxTitle}</h3>
+                  <p className="mb-5 lead opacity-75">{t.contact.boxDesc}</p>
+                  
+                  <div className="row mb-5 text-white">
+                     <div className="col-md-6 mb-3 mb-md-0">
+                        <div className="fs-1 text-orange mb-2">📍</div>
+                        <strong>{t.contact.locationLabel}</strong><br/>
+                        <span className="opacity-75 text-aspiring">{t.contact.locationValue}</span>
+                     </div>
+                     <div className="col-md-6">
+                        <div className="fs-1 text-orange mb-2">✉️</div>
+                        <strong>{t.contact.emailLabel}</strong><br/>
+                        <a href="mailto:hymnia.tech@gmail.com" className="text-caramel text-decoration-none fw-bold">hymnia.tech@gmail.com</a>
+                     </div>
+                  </div>
+                  
+                  <button onClick={() => setShowForm(true)} className="btn btn-orange btn-lg px-5">
+                    {t.contact.btnText}
+                  </button>
                 </div>
               )}
 
