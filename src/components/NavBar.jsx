@@ -21,7 +21,7 @@ const NavBar = () => {
             height="45" /* Puedes ajustar esta altura (en píxeles) para que se vea proporcionado */
             className="d-inline-block align-text-top"
           />
-          {<span className="ms-2 fs-4 text-caramel serif-font d-none d-sm-block">hymnia.tech</span>}
+          {<span className="ms-2 fs-4 text-caramel serif-font d-none d-sm-block">hymnia</span>}
         </NavLink>
         
         <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

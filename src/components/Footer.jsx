@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container">
         <div className="row align-items-center text-center text-md-start">
           <div className="col-md-6 mb-3 mb-md-0">
-            <h3 className="serif-font mb-2 text-caramel">hymnia.tech</h3>
+            <h3 className="serif-font mb-2 text-caramel">hymnia</h3>
             <small className="opacity-75 text-aspiring">Boutique IA & GenIA Consulting.</small>
           </div>
           <div className="col-md-6 text-center text-md-end">
