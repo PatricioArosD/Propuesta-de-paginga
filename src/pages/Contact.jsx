@@ -1,21 +1,24 @@
 import React, { useState, useContext } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom'; // <-- 1. Importar useNavigate
+import { useNavigate } from 'react-router-dom';
+
+// IMPORTAMOS LOS BOCETOS PARA EL CONTACTO
+import iconContact1 from '../assets/asset-due-diligence.png';
+import iconContact2 from '../assets/asset-architecture.png';
+import iconContact3 from '../assets/asset-strategy.png';
+import iconLocation from '../assets/asset-location.png'; // Necesitarás este PNG
+import iconEmail from '../assets/asset-email.png';       // Necesitarás este PNG
 
 const Contact = () => {
   const { t, language } = useContext(LanguageContext);
-  const navigate = useNavigate(); // <-- 2. Inicializar navegación
+  const navigate = useNavigate();
   
-  // Estados para controlar el formulario y el contador
   const [showForm, setShowForm] = useState(false);
   const [message, setMessage] = useState('');
-  
-  // Nuevos estados para controlar el envío
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Lógica para limitar a 300 caracteres
   const handleMessageChange = (e) => {
     const text = e.target.value;
     if (text.length <= 300) {
@@ -25,30 +28,21 @@ const Contact = () => {
 
   const charCount = message.length;
 
-  // 3. Lógica para enviar en segundo plano (AJAX)
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Evita que la página cambie a la de FormSubmit
-    setIsSubmitting(true); // Cambia el botón a "Enviando..."
-
+    e.preventDefault();
+    setIsSubmitting(true);
     const formData = new FormData(e.target);
 
     try {
-      // Nota: Agregamos /ajax/ a la URL para el envío en segundo plano
       const response = await fetch("https://formsubmit.co/ajax/hymnia.tech@gmail.com", {
         method: "POST",
         body: formData,
-        headers: {
-            'Accept': 'application/json'
-        }
+        headers: { 'Accept': 'application/json' }
       });
 
       if (response.ok) {
-        setIsSuccess(true); // Muestra la pantalla de éxito
-        
-        // Espera 3.5 segundos y redirige al Home
-        setTimeout(() => {
-          navigate('/');
-        }, 3500);
+        setIsSuccess(true);
+        setTimeout(() => { navigate('/'); }, 3500);
       } else {
         alert(language === 'EN' ? 'Error sending message. Try again.' : 'Error al enviar. Intenta de nuevo.');
         setIsSubmitting(false);
@@ -61,27 +55,15 @@ const Contact = () => {
 
   const boxColors = ["bg-midnight", "bg-caramel", "bg-plum"];
   const textColors = ["text-white", "text-midnight", "text-white"];
+  
+  // ARRAY DE IMÁGENES PARA SOBRESCRIBIR LOS EMOJIS DEL JSON
+  const contactIcons = [iconContact1, iconContact2, iconContact3];
 
   return (
     <div className="container py-5">
-      {/* --- INICIO BLOQUE SEO --- */}
       <Helmet>
-        <title>
-          {language === 'EN' 
-            ? 'Contact & Technical Discovery | hymnia.tech' 
-            : 'Contacto y Discovery Técnico | hymnia.tech'}
-        </title>
-        <meta 
-          name="description" 
-          content={
-            language === 'EN' 
-            ? "Schedule a 30-minute technical Discovery session directly with our GenAI architecture team." 
-            : "Agenda una sesión de Discovery técnico de 30 minutos directamente con nuestro equipo de arquitectura GenIA."
-          } 
-        />
-        <meta name="keywords" content="contact AI consultant, schedule technical session, AI architecture assessment, GenAI consulting contact" />
+        <title>{language === 'EN' ? 'Contact & Technical Discovery | hymnia.tech' : 'Contacto y Discovery Técnico | hymnia.tech'}</title>
       </Helmet>
-      {/* --- FIN BLOQUE SEO --- */}
 
       <div className="text-center mb-5">
         <h1 className="text-midnight fw-bold display-5 serif-font">{t.contact.title}</h1>
@@ -89,15 +71,21 @@ const Contact = () => {
       </div>
 
       <div className="row g-4 mb-5">
-         {t.contact.whyChooseUs.map((item, idx) => (
-            <div className="col-md-4" key={idx}>
-               <div className={`card h-100 border-0 shadow text-center p-4 ${boxColors[idx]} ${textColors[idx]}`}>
-                  <div className="fs-1 mb-3">{item.icon}</div>
-                  <h4 className={`serif-font fw-bold mb-3`}>{item.title}</h4>
-                  <p className={`opacity-75 ${textColors[idx]}`}>{item.desc}</p>
-               </div>
-            </div>
-         ))}
+         {t.contact.whyChooseUs.map((item, idx) => {
+             const filterClass = textColors[idx] === 'text-white' ? 'icon-light-blend' : 'icon-dark-blend';
+             return (
+                <div className="col-md-4" key={idx}>
+                   <div className={`card h-100 border-0 shadow text-center p-4 ${boxColors[idx]} ${textColors[idx]}`}>
+                      {/* ETIQUETA IMG EN LUGAR DE {item.icon} SIN FILTRO DE COLOR */}
+                      <div className="mb-4">
+                         <img src={contactIcons[idx]} alt="" className="service-icon-sketch" style={{height: '84px'}} />
+                      </div>
+                      <h4 className={`serif-font fw-bold mb-3`}>{item.title}</h4>
+                      <p className={`opacity-75 ${textColors[idx]}`}>{item.desc}</p>
+                   </div>
+                </div>
+             );
+         })}
       </div>
 
       <div className="row justify-content-center">
@@ -105,10 +93,7 @@ const Contact = () => {
           <div className="card bg-midnight text-aspiring border-0 shadow-lg rounded-4 overflow-hidden" style={{ minHeight: '400px' }}>
             <div className="card-body p-5 d-flex align-items-center justify-content-center">
               
-              {/* RENDERIZADO CONDICIONAL: ÉXITO -> FORMULARIO -> INICIO */}
-              
               {isSuccess ? (
-                // PANTALLA DE ÉXITO Y REDIRECCIÓN
                 <div className="text-center fade-in py-4">
                   <div className="display-1 mb-3">✅</div>
                   <h3 className="fw-bold serif-font text-white mb-3">
@@ -121,15 +106,12 @@ const Contact = () => {
                   </p>
                 </div>
               ) : showForm ? (
-                
-                // VISTA 2: FORMULARIO DE CONTACTO
                 <div className="text-start fade-in w-100">
                   <h3 className="fw-bold serif-font mb-4 text-white text-center">
                     {language === 'EN' ? 'Tell us about your challenge' : 'Cuéntanos tu desafío'}
                   </h3>
-                  
-                  {/* El action y method se cambian por onSubmit */}
                   <form onSubmit={handleSubmit}>
+                     {/* ... (TODO EL FORMULARIO SE MANTIENE EXACTAMENTE IGUAL) ... */}
                     <input type="hidden" name="_subject" value="¡Nuevo lead técnico en hymnia.tech!" />
                     <input type="hidden" name="_captcha" value="false" />
                     
@@ -138,7 +120,6 @@ const Contact = () => {
                         <label className="form-label text-caramel fw-semibold">{language === 'EN' ? 'Client Name' : 'Nombre del Cliente'}</label>
                         <input type="text" name="Name" className="form-control bg-transparent text-white border-aspiring" required />
                       </div>
-                      
                       <div className="col-md-6 mb-3">
                         <label className="form-label text-caramel fw-semibold">{language === 'EN' ? 'Email Address' : 'Correo Electrónico'}</label>
                         <input type="email" name="Email" className="form-control bg-transparent text-white border-aspiring" required />
@@ -175,11 +156,8 @@ const Contact = () => {
                     </div>
 
                     <div className="d-flex gap-3">
-                      {/* El botón se deshabilita y cambia de texto mientras envía */}
                       <button type="submit" className="btn btn-outline-light flex-grow-1" disabled={isSubmitting}>
-                        {isSubmitting 
-                          ? (language === 'EN' ? 'Sending...' : 'Enviando...') 
-                          : (language === 'EN' ? 'Send Request' : 'Enviar Solicitud')}
+                        {isSubmitting ? (language === 'EN' ? 'Sending...' : 'Enviando...') : (language === 'EN' ? 'Send Request' : 'Enviar Solicitud')}
                       </button>
                       <button type="button" onClick={() => setShowForm(false)} className="btn btn-outline-light" disabled={isSubmitting}>
                         {language === 'EN' ? 'Cancel' : 'Cancelar'}
@@ -188,26 +166,26 @@ const Contact = () => {
                   </form>
                 </div>
               ) : (
-                
-                // VISTA 1: INFORMACIÓN DE CONTACTO (Original)
                 <div className="text-center w-100">
                   <h3 className="fw-bold serif-font mb-4 display-6 text-white">{t.contact.boxTitle}</h3>
                   <p className="mb-5 lead opacity-75">{t.contact.boxDesc}</p>
                   
                   <div className="row mb-5 text-white">
                      <div className="col-md-6 mb-3 mb-md-0">
-                        <div className="fs-1 text-orange mb-2">📍</div>
+                        {/* ETIQUETA IMG EN LUGAR DE LA UBICACIÓN SIN FILTRO DE COLOR */}
+                        <div className="mb-2"><img src={iconLocation} alt="Location" style={{height: '60px'}} /></div>
                         <strong>{t.contact.locationLabel}</strong><br/>
                         <span className="opacity-75 text-aspiring">{t.contact.locationValue}</span>
                      </div>
                      <div className="col-md-6">
-                        <div className="fs-1 text-orange mb-2">✉️</div>
+                        {/* ETIQUETA IMG EN LUGAR DEL CORREO SIN FILTRO DE COLOR */}
+                        <div className="mb-2"><img src={iconEmail} alt="Email" style={{height: '60px'}} /></div>
                         <strong>{t.contact.emailLabel}</strong><br/>
                         <a href="mailto:hymnia.tech@gmail.com" className="text-caramel text-decoration-none fw-bold">hymnia.tech@gmail.com</a>
                      </div>
                   </div>
                   
-                  <button onClick={() => setShowForm(true)} className="btn btn-orange btn-lg px-5">
+                  <button onClick={() => setShowForm(true)} className="btn btn-orange btn-lg text-white px-5">
                     {t.contact.btnText}
                   </button>
                 </div>

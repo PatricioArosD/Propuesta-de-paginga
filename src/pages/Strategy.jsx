@@ -1,45 +1,32 @@
 import React, { useState, useContext } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
-import { Helmet } from 'react-helmet-async'; // <-- Importado Helmet
+import { Helmet } from 'react-helmet-async';
+
+// IMPORTAMOS LOS BOCETOS
+import iconGrowth from '../assets/asset-strategy.png';
+import iconTools from '../assets/asset-architecture.png';
+import iconAi from '../assets/asset-delivery.png';
+import iconShield from '../assets/asset-protection.png';
+import iconScales from '../assets/asset-compliance.png';
 
 const Strategy = () => {
-  const { t, language } = useContext(LanguageContext); // <-- Agregado 'language' para lógica condicional
+  const { t, language } = useContext(LanguageContext);
   const [expandedService, setExpandedService] = useState(null);
 
   const toggleDetails = (index) => {
     setExpandedService(expandedService === index ? null : index);
   };
 
-  const strategyIcons = ["📈", "🛠️", "🤖", "🛡️", "⚖️"];
+  // ARRAY DE IMÁGENES (Ya no son emojis)
+  const strategyIcons = [iconGrowth, iconTools, iconAi, iconShield, iconScales];
   const headerColors = ["bg-midnight", "bg-orange", "bg-plum", "bg-caramel", "bg-aspiring"];
 
   return (
     <div className="container py-5">
-      {/* --- INICIO BLOQUE SEO --- */}
+      {/* ... (Helmet se mantiene igual) ... */}
       <Helmet>
-        <title>
-          {language === 'EN' 
-            ? 'Strategy & AI Services | hymnia.tech' 
-            : 'Estrategia y Servicios IA | hymnia.tech'}
-        </title>
-        <meta 
-          name="description" 
-          content={
-            language === 'EN' 
-            ? "Pragmatic AI solutions, project rescue, and technical leadership. We ensure GenAI generates real business value through robust ML architectures." 
-            : "Soluciones de IA pragmáticas, rescate de proyectos y liderazgo técnico. Aseguramos que la GenIA genere valor real mediante arquitecturas ML robustas."
-          } 
-        />
-        <meta 
-          name="keywords" 
-          content={
-            language === 'EN'
-            ? "AI strategy, technical leadership, rescue AI projects, ML roadmap, GenAI governance, B2B AI consulting"
-            : "Estrategia IA, liderazgo técnico, rescate proyectos IA, roadmap Machine Learning, gobernanza GenAI, consultoría B2B"
-          }
-        />
+        <title>{language === 'EN' ? 'Strategy & AI Services | hymnia.tech' : 'Estrategia y Servicios IA | hymnia.tech'}</title>
       </Helmet>
-      {/* --- FIN BLOQUE SEO --- */}
 
       <div className="text-center mb-5">
         <h1 className="text-midnight fw-bold display-5 serif-font">{t.strategy.title}</h1>
@@ -49,13 +36,17 @@ const Strategy = () => {
       <div className="row g-4 mb-5">
         {t.strategy.items.slice(0, 4).map((svc, index) => {
            const bgColor = headerColors[index];
-           const iconColor = (bgColor === 'bg-aspiring' || bgColor === 'bg-caramel') ? 'text-midnight' : 'text-white';
+           const isDarkText = (bgColor === 'bg-aspiring' || bgColor === 'bg-caramel');
+           const textColor = isDarkText ? 'text-midnight' : 'text-white';
+           // Usamos la lógica de colores de CSS que creamos antes
+           const filterClass = isDarkText ? 'icon-dark-blend' : 'icon-light-blend';
 
            return (
             <div className="col-lg-3 col-md-6" key={index}>
               <div className={`card h-100 border-0 shadow-sm text-center card-colored-header`}>
-                 <div className={`card-header ${bgColor} ${iconColor}`}>
-                    {strategyIcons[index]}
+                 <div className={`card-header ${bgColor} d-flex align-items-center justify-content-center py-3`}>
+                    {/* ETIQUETA IMG EN LUGAR DE EMOJI SIN FILTRO DE COLOR */}
+                    <img src={strategyIcons[index]} alt="" className="service-icon-sketch" style={{height: '100px'}} />
                  </div>
                 <div className="card-body p-4 bg-white rounded-bottom">
                   <h5 className="text-midnight fw-bold serif-font mb-3">{svc.title}</h5>
@@ -72,13 +63,17 @@ const Strategy = () => {
         })}
       </div>
 
-      <div className="py-5 bg-white rounded-4 shadow-sm p-4 p-md-5 my-5">
-         <h2 className="text-midnight fw-bold serif-font mb-4 text-center">Examples & Case Studies</h2>
+<div className="py-5 bg-white rounded-4 shadow-sm p-4 p-md-5 my-5">
+         <h2 className="text-midnight fw-bold serif-font mb-4 text-center">
+           {language === 'EN' ? 'Examples & Case Studies' : 'Ejemplos y Casos de Éxito'}
+         </h2>
          <div className="row g-4">
             {t.strategy.items.slice(0, 4).map((svc, idx) => (
                <div className="col-md-6" key={idx}>
                   <div className="p-4 rounded-3 h-100" style={{ backgroundColor: idx % 2 === 0 ? 'var(--color-aspiring)' : 'var(--color-caramel)' }}>
-                     <h6 className="text-plum fw-bold text-uppercase mb-3">Case {idx + 1}</h6>
+                     <h6 className="text-plum fw-bold text-uppercase mb-3">
+                       {language === 'EN' ? 'Case' : 'Caso'} {idx + 1}
+                     </h6>
                      <ul className="ps-3 mb-0">
                         {svc.examples.map((ex, i) => (
                            <li key={i} className="mb-2 text-midnight fw-semibold">{ex}</li>

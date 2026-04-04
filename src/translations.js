@@ -65,7 +65,7 @@ export const translations = {
       ]
     },
     delivery: {
-      title: "Delivery & Implementación",
+      title: "Entrega e Implementación",
       subtitle: "Del Código a la Operación",
       description: "No entregamos simples presentaciones. Nuestro modelo de Delivery se basa en un liderazgo 'hands-on'. Acompañamos a tu equipo interno no solo en el diseño de la arquitectura, sino en la escritura del código, la integración de APIs de GenAI y el despliegue en infraestructura Cloud.",
       checklist: [

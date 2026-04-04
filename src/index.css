@@ -115,3 +115,25 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .serif-font {
   height: 40px;
   /* adjust as needed */
 }
+/* Estilos para los nuevos iconos de boceto renacentista */
+.service-icon-sketch {
+    height: 70px; /* Tamaño generoso pero no gigante */
+    width: auto;
+    max-width: 90%;
+    object-fit: contain;
+    padding: 10px;
+}
+
+/* Filtros para colorear los iconos PNG negros en blanco/oscuro automáticamente */
+.icon-light-blend {
+    filter: invert(100%) brightness(100%); /* Convierte el icono negro en blanco puro */
+}
+
+.icon-dark-blend {
+    filter: brightness(0) opacity(70%); /* Convierte el icono negro en gris oscuro (Midnight) */
+}
+/* Resaltado de la 'ia' en el logo/texto de marca */
+.highlight-ia {
+    color: var(--color-orange) !important; /* Usamos Orange Luster para que salte a la vista */
+    font-weight: bold;
+}

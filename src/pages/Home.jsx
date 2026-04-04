@@ -1,40 +1,33 @@
 import React, { useContext } from 'react';
 import { LanguageContext } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async'; // <-- 1. Importamos Helmet
+import { Helmet } from 'react-helmet-async';
+
+// 1. IMPORTAMOS LOS NUEVOS ACTIVOS RENACENTISTAS (PNGs)
+import iconStrategy from '../assets/asset-strategy.png';
+import iconArchitecture from '../assets/asset-architecture.png';
+import iconDelivery from '../assets/asset-delivery.png';
+import iconCompliance from '../assets/asset-compliance.png';
+import iconProtection from '../assets/asset-protection.png';
+import iconDueDiligence from '../assets/asset-due-diligence.png';
 
 const Home = () => {
-  // 2. Extraemos 'language' del contexto para hacer el SEO dinámico
   const { t, language } = useContext(LanguageContext);
 
-  const serviceIcons = ["⚙️", "🛠️", "🤖", "⚖️", "🛡️", "🔍"];
+  // 2. CREAMOS EL ARRAY DE IMÁGENES EN LUGAR DE EMOJIS
+  const serviceIcons = [iconStrategy, iconArchitecture, iconDelivery, iconCompliance, iconProtection, iconDueDiligence];
   const cardColors = ["bg-midnight", "bg-plum", "bg-orange", "bg-aspiring", "bg-caramel", "bg-midnight"];
 
   return (
     <div>
-      {/* --- INICIO BLOQUE SEO DINÁMICO --- */}
+      {/* --- BLOQUE SEO --- */}
       <Helmet>
         <title>
           {language === 'EN' 
             ? 'hymnia.tech | Boutique AI & GenAI Consulting' 
             : 'hymnia.tech | Consultora Boutique de IA y GenIA'}
         </title>
-        <meta 
-          name="description" 
-          content={
-            language === 'EN' 
-            ? "Expert AI & GenAI consulting. We build scalable Machine Learning architectures, optimize RAG systems, and lead tech products from PoC to production." 
-            : "Consultoría experta en IA y GenAI. Construimos arquitecturas Machine Learning escalables, optimizamos sistemas RAG y llevamos productos a producción."
-          } 
-        />
-        <meta 
-          name="keywords" 
-          content={
-            language === 'EN'
-            ? "AI consulting, GenAI architecture, RAG optimization, Machine Learning, Latam AI consultant, LLM implementation"
-            : "Consultoría IA, arquitectura GenAI, optimización RAG, Machine Learning, consultora IA Latam, implementación LLM"
-          }
-        />
+        <meta name="description" content="Expert AI & GenAI consulting. We build scalable Machine Learning architectures, optimize RAG systems, and lead tech products from PoC to production." />
       </Helmet>
       {/* --- FIN BLOQUE SEO --- */}
 
@@ -63,20 +56,29 @@ const Home = () => {
 
       <div className="container py-5 my-5">
         <div className="text-center mb-5">
-          <h6 className="text-orange text-uppercase ls-2 fw-bold">What we do</h6>
+          <h6 className="text-orange text-uppercase ls-2 fw-bold">
+            {language === 'EN' ? 'What we do' : 'Lo que hacemos'}
+          </h6>
           <h2 className="text-midnight fw-bold display-5 serif-font">{t.home.servicesTitle}</h2>
         </div>
         
         <div className="row g-4">
           {t.home.highLevelServices.map((service, index) => {
             const bgColor = cardColors[index % cardColors.length];
-            const iconTextColor = (bgColor === 'bg-aspiring' || bgColor === 'bg-caramel') ? 'text-midnight' : 'text-white';
+            // La lógica de color del texto sigue funcionando, pero para la imagen
+            const iconTextColor = (bgColor === 'bg-aspiring' || bgColor === 'bg-caramel') ? 'icon-dark-blend' : 'icon-light-blend';
             
             return (
               <div className="col-md-4" key={index}>
                 <div className="card card-colored-header h-100 shadow-sm border-0">
-                  <div className={`card-header ${bgColor} ${iconTextColor}`}>
-                    {serviceIcons[index % serviceIcons.length]}
+                  <div className={`card-header ${bgColor} d-flex align-items-center justify-content-center`}>
+                    {/* 3. CAMBIAMOS EL EMOJI POR UNA ETIQUETA IMG SIN FILTRO DE COLOR */}
+                    <img 
+                      src={serviceIcons[index % serviceIcons.length]} 
+                      alt="" 
+                      className="service-icon-sketch"
+                      style={{height: '125px'}}
+                    />
                   </div>
                   <div className="card-body text-center p-4">
                     <h5 className="card-title text-midnight fw-bold serif-font">{service}</h5>
