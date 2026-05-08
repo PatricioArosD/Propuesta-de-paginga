@@ -15,7 +15,9 @@ const Footer = () => {
             </h3>
             {/* AQUÍ EL TEXTO CAMBIA DINÁMICAMENTE */}
             <small className="opacity-75 text-aspiring">
-              {language === 'EN' ? 'Boutique AI & GenAI Consulting.' : 'Consultoría Boutique de IA y GenIA.'}
+              {language === 'EN' 
+                ? 'Hymn: Artificial Intelligence Consulting & GenAI.' 
+                : 'Hymn: Consultoría en Inteligencia Artificial y GenIA.'}
             </small>
           </div>
           <div className="col-md-6 text-center text-md-end">

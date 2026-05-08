@@ -21,14 +21,28 @@ const Home = () => {
   return (
     <div>
       {/* --- BLOQUE SEO --- */}
+      {/* --- INICIO BLOQUE SEO MAESTRO --- */}
       <Helmet>
         <title>
           {language === 'EN' 
-            ? 'hymnia.tech | Boutique AI & GenAI Consulting' 
-            : 'hymnia.tech | Consultora Boutique de IA y GenIA'}
+            ? 'Hymnia (Hymn AI) | Artificial Intelligence Consulting' 
+            : 'Hymnia (Hymn IA) | Consultoría en Inteligencia Artificial'}
         </title>
-        <meta name="description" content="Expert AI & GenAI consulting. We build scalable Machine Learning architectures, optimize RAG systems, and lead tech products from PoC to production." />
+        <meta 
+          name="description" 
+          content={
+            language === 'EN' 
+            ? "Hymn provides expert Artificial Intelligence consulting. We build scalable AI architectures, optimize GenAI systems, and lead tech products from PoC to production." 
+            : "Hymn ofrece consultoría en Inteligencia Artificial de alto nivel. Construimos arquitecturas de IA escalables, optimizamos sistemas GenIA y lideramos tu producto técnico."
+          } 
+        />
+        {/* Aunque Google no la usa, Bing y Yahoo a veces sí la leen un poco, así que la dejamos optimizada */}
+        <meta 
+          name="keywords" 
+          content="Hymnia, Hymn, IA, AI, consultoría inteligencia artificial, artificial intelligence consulting, GenAI architecture, B2B AI consultant" 
+        />
       </Helmet>
+      {/* --- FIN BLOQUE SEO --- */}
       {/* --- FIN BLOQUE SEO --- */}
 
       <div className="container-fluid p-0">
